@@ -1,0 +1,28 @@
+# Terraform working files
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.plan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform variable files that may contain environment-specific values
+*.tfvars
+*.tfvars.json
+
+# Local environment and editor noise
+.env
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Python cache in case helper scripts are added later
+__pycache__/
+*.pyc
