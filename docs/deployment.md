@@ -16,9 +16,17 @@ It does not upload site files from a developer machine.
 
 ## Typical workflow
 
-1. Apply Terraform infrastructure.
+1. Apply Terraform infrastructure from the `terraform/` subdirectory.
 2. Publish frontend artifacts to the site bucket using a separate deployment workflow.
 3. Invalidate CloudFront paths when the publishing workflow requires it.
+
+Example:
+
+```bash
+terraform -chdir=terraform init
+terraform -chdir=terraform plan -var-file=envs/production.tfvars
+terraform -chdir=terraform apply -var-file=envs/production.tfvars
+```
 
 ## Expected prerequisites
 
@@ -32,3 +40,4 @@ It does not upload site files from a developer machine.
 - `www.<domain>` is the canonical frontend hostname.
 - `<domain>` is handled separately and redirects to `https://www.<domain>`.
 - Cache behavior is explicit in Terraform rather than relying on unclear defaults.
+- Terraform provisions hosting infrastructure only. Frontend artifact publishing remains a separate workflow by design.

@@ -55,6 +55,16 @@ variable "bucket_name_prefix" {
   type        = string
   default     = null
   nullable    = true
+
+  validation {
+    condition     = var.bucket_name_prefix == null || length(trimspace(var.bucket_name_prefix)) > 0
+    error_message = "bucket_name_prefix must not be empty when set."
+  }
+
+  validation {
+    condition     = var.bucket_name_prefix == null || length(regexall("[A-Za-z0-9]", var.bucket_name_prefix)) > 0
+    error_message = "bucket_name_prefix must contain at least one letter or digit when set."
+  }
 }
 
 variable "enable_access_logs" {
@@ -91,6 +101,14 @@ variable "price_class" {
   description = "CloudFront price class."
   type        = string
   default     = "PriceClass_100"
+
+  validation {
+    condition = contains(
+      ["PriceClass_100", "PriceClass_200", "PriceClass_All"],
+      var.price_class
+    )
+    error_message = "price_class must be one of PriceClass_100, PriceClass_200, or PriceClass_All."
+  }
 }
 
 variable "tags" {
