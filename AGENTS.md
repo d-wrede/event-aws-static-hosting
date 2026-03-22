@@ -12,8 +12,6 @@ This repository is for a narrow outcome:
 - redirects and baseline caching
 - strict separation between infrastructure and content/data deployment
 
-Use `freiburg-hosting-repo-analysis.md` as the current architectural intent reference until a fuller project documentation structure exists.
-
 ## Instruction precedence
 
 When instructions overlap, use this order:
@@ -21,7 +19,6 @@ When instructions overlap, use this order:
 1. `AGENTS.md`
 2. `.github/copilot-instructions.md`
 3. `README.md`
-4. `freiburg-hosting-repo-analysis.md`
 
 If a new repo document is added later and should become authoritative, update this section explicitly.
 
@@ -33,9 +30,9 @@ If a new repo document is added later and should become authoritative, update th
 - `.github/copilot-instructions.md`
   Entry point for cloud agents and repo automation.
   Keep AWS-, Terraform-, CI-, and deployment-platform-specific rules there.
-- `freiburg-hosting-repo-analysis.md`
-  Planning and target-state reference.
-  Use it to keep implementation aligned with the intended hosting scope.
+- `README.md`
+  Persistent repository overview and bootstrap instructions.
+  Keep it aligned with the current hosting scope and repository shape.
 
 ## Core guardrails
 
@@ -56,6 +53,7 @@ If a new repo document is added later and should become authoritative, update th
   - CloudFront distributions
   - optional logging resources
 - `www` serving and `apex` redirect should be modeled as separate concerns.
+- The preferred canonical URL is `www.<domain>`, while `<domain>` should remain reachable through a clean redirect unless explicitly changed later.
 - Make caching decisions explicit instead of leaving important behavior at unclear defaults.
 - Production-destructive settings such as `force_destroy = true` should not be the default without an explicit reason.
 

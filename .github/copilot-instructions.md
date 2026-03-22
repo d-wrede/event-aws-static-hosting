@@ -14,13 +14,11 @@ The intended outcome is deliberately narrow:
 - redirects and baseline caching
 - clear separation between infrastructure and content/data deployment
 
-For current planning context, see `freiburg-hosting-repo-analysis.md`.
-
 ## Agent entry sequence
 
 1. Read `AGENTS.md` first.
 2. Read this file second for cloud-specific constraints.
-3. Read `freiburg-hosting-repo-analysis.md` when implementation scope or repository shape is relevant.
+3. Read `README.md` and `docs/deployment.md` when implementation scope or repository shape is relevant.
 
 ## Cloud and Terraform guardrails
 
