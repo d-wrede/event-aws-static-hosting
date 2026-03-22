@@ -47,12 +47,12 @@ variable "bucket_name_prefix" {
   nullable    = true
 
   validation {
-    condition     = var.bucket_name_prefix == null || length(trimspace(var.bucket_name_prefix)) > 0
+    condition     = var.bucket_name_prefix == null ? true : length(trimspace(var.bucket_name_prefix)) > 0
     error_message = "bucket_name_prefix must not be empty when set."
   }
 
   validation {
-    condition     = var.bucket_name_prefix == null || length(regexall("[A-Za-z0-9]", var.bucket_name_prefix)) > 0
+    condition     = var.bucket_name_prefix == null ? true : length(regexall("[A-Za-z0-9]", var.bucket_name_prefix)) > 0
     error_message = "bucket_name_prefix must contain at least one letter or digit when set."
   }
 }

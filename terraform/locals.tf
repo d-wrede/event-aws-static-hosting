@@ -8,9 +8,9 @@ locals {
   )
 
   normalized_bucket_prefix = trim(
-    regexreplace(
-      regexreplace(lower(local.raw_bucket_prefix), "[^a-z0-9-]", "-"),
-      "-+",
+    replace(
+      replace(lower(local.raw_bucket_prefix), "/[^a-z0-9-]/", "-"),
+      "/-+/",
       "-"
     ),
     "-"
