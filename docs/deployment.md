@@ -39,5 +39,6 @@ terraform -chdir=terraform apply -var-file=envs/production.tfvars
 - The ACM certificate is created in `us-east-1` because CloudFront requires it there.
 - `www.<domain>` is the canonical frontend hostname.
 - `<domain>` is handled separately and redirects to `https://www.<domain>`.
+- The site distribution uses a CloudFront Function on `viewer-request` to rewrite clean subpage URLs such as `/info` and `/info/` to `/info/index.html` while leaving asset paths unchanged.
 - Cache behavior is explicit in Terraform rather than relying on unclear defaults.
 - Terraform provisions hosting infrastructure only. Frontend artifact publishing remains a separate workflow by design.

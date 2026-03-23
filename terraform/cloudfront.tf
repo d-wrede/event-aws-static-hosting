@@ -56,6 +56,14 @@ resource "aws_cloudfront_cache_policy" "redirect_default" {
   }
 }
 
+resource "aws_cloudfront_function" "site_directory_index_rewrite" {
+  name    = "${local.bucket_prefix}-site-directory-index-rewrite"
+  comment = "Rewrites clean directory-style URLs to index.html for the site distribution."
+  runtime = "cloudfront-js-1.0"
+  publish = true
+  code    = file("${path.module}/cloudfront-functions/site-directory-index-rewrite.js")
+}
+
 resource "aws_cloudfront_distribution" "site" {
   enabled             = true
   is_ipv6_enabled     = true
@@ -81,6 +89,11 @@ resource "aws_cloudfront_distribution" "site" {
     viewer_protocol_policy = "redirect-to-https"
     cache_policy_id        = aws_cloudfront_cache_policy.site_default.id
     compress               = true
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.site_directory_index_rewrite.arn
+    }
   }
 
   restrictions {
