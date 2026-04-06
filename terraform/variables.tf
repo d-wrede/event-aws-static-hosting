@@ -69,8 +69,11 @@ variable "access_log_retention_days" {
   default     = 14
 
   validation {
-    condition     = var.access_log_retention_days >= 1
-    error_message = "access_log_retention_days must be at least 1."
+    condition = (
+      var.access_log_retention_days >= 7 &&
+      floor(var.access_log_retention_days) == var.access_log_retention_days
+    )
+    error_message = "access_log_retention_days must be an integer greater than or equal to 1."
   }
 }
 

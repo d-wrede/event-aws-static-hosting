@@ -57,7 +57,7 @@ resource "aws_cloudfront_cache_policy" "redirect_default" {
 }
 
 resource "aws_cloudfront_function" "site_directory_index_rewrite" {
-  name    = "${local.bucket_prefix}-site-directory-index-rewrite"
+  name    = trim(substr("${local.bucket_prefix}-dir-index", 0, 64), "-")
   comment = "Rewrites clean directory-style URLs to index.html for the site distribution."
   runtime = "cloudfront-js-1.0"
   publish = true
@@ -68,7 +68,7 @@ resource "aws_cloudfront_distribution" "site" {
   enabled             = true
   is_ipv6_enabled     = true
   comment             = "Canonical static site distribution."
-  aliases             = [local.www_domain_name]
+  aliases             = []  # local.www_domain_name]
   default_root_object = "index.html"
   price_class         = var.price_class
 
