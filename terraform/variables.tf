@@ -63,6 +63,17 @@ variable "enable_access_logs" {
   default     = false
 }
 
+variable "access_log_retention_days" {
+  description = "Number of days to retain CloudFront access logs in S3 when access logging is enabled."
+  type        = number
+  default     = 14
+
+  validation {
+    condition     = var.access_log_retention_days >= 1
+    error_message = "access_log_retention_days must be at least 1."
+  }
+}
+
 variable "site_default_ttl" {
   description = "Default TTL in seconds for the canonical site distribution."
   type        = number

@@ -4,6 +4,7 @@ domain_name      = "example.com"
 hosted_zone_name = "example.com"
 
 enable_access_logs = true
+access_log_retention_days = 30
 
 tags = {
   Owner       = "Platform Team"

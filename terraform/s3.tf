@@ -128,3 +128,22 @@ resource "aws_s3_bucket_acl" "access_logs" {
   bucket = aws_s3_bucket.access_logs[0].id
   acl    = "log-delivery-write"
 }
+
+resource "aws_s3_bucket_lifecycle_configuration" "access_logs" {
+  count = var.enable_access_logs ? 1 : 0
+
+  bucket = aws_s3_bucket.access_logs[0].id
+
+  rule {
+    id     = "expire-access-logs"
+    status = "Enabled"
+
+    filter {
+      prefix = ""
+    }
+
+    expiration {
+      days = var.access_log_retention_days
+    }
+  }
+}
