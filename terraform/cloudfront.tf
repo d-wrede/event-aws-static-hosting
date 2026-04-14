@@ -68,7 +68,7 @@ resource "aws_cloudfront_distribution" "site" {
   enabled             = true
   is_ipv6_enabled     = true
   comment             = "Canonical static site distribution."
-  aliases             = []  # local.www_domain_name]
+  aliases             = [local.normalized_domain_name]
   default_root_object = "index.html"
   price_class         = var.price_class
 
@@ -154,8 +154,8 @@ resource "aws_s3_bucket_policy" "site_cloudfront_read" {
 resource "aws_cloudfront_distribution" "redirect" {
   enabled         = true
   is_ipv6_enabled = true
-  comment         = "Apex redirect distribution."
-  aliases         = [local.normalized_domain_name]
+  comment         = "WWW redirect distribution."
+  aliases         = [local.www_domain_name]
   price_class     = var.price_class
 
   origin {
